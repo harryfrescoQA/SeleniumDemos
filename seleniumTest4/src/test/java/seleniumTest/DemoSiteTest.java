@@ -66,17 +66,21 @@ public class DemoSiteTest {
 	         Select dropdownPassenger = new Select(driver.findElement(By.name("passCount")));
 	         dropdownPassenger.selectByVisibleText("2");
 	        
-	         String searchTerm = "dress";
-	         searchBar.sendKeys(searchTerm);
-	         searchBar.submit();
+	         Select dropdownfrom = new Select(driver.findElement(By.name("fromPort")));
+	         dropdownPassenger.selectByVisibleText("London");
+	         Select dropdownto = new Select(driver.findElement(By.name("toPort")));
+	         dropdownPassenger.selectByVisibleText("Paris");
+	         
+	         WebElement classSelect = driver.findElement(By.name("servClass"));
+	         classSelect.click();
 
-	         List<WebElement> products = driver.findElements(By.className("ajax_block_product"));
-	         for(WebElement product: products) {
-	             String productName = product.findElement(By.className("product-name")).getText();
-	             if (!productName.contains(searchTerm)) {
-	                 fail("Non-relevant item returned");
-	             }
-	         }
+	         Select dropdownAirline = new Select(driver.findElement(By.name("airline")));
+	         dropdownPassenger.selectByVisibleText("Unified Airlines");
+	         
+	         
+	         WebElement findButton = driver.findElement(By.name("findFlights"));
+	         findButton.click();
+
 	    }
 
 	    @After
