@@ -36,11 +36,8 @@ public class DemoSiteTest {
 
 	      WebElement results = driver.findElement(By.cssSelector("#center_column > ul > li > div > div.right-block > h5 > a"));
 
-	             assertEquals("Blouse", results.getText());
-//	             if (!productName.contains(searchTerm)) {
-//	                 fail("Non-relevant item returned");
-//	             }
-	         
+	      assertEquals("Blouse", results.getText());
+
 	    }
 
 	    @After
