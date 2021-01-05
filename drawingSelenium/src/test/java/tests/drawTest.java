@@ -18,7 +18,7 @@ public class drawTest {
 	    public void setup() {
 	        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 	        driver = new ChromeDriver();
-	        driver.manage().window().setSize(new Dimension(1366, 768));
+	        driver.manage().window().setSize(new Dimension(1300, 768));
 
 	    }
 	  
