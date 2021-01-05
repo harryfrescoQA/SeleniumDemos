@@ -11,6 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import pages.createUser;
+import pages.landingPage;
+import pages.login;
+
 public class DemoSiteTest {
 	 private WebDriver driver;
 
@@ -24,37 +28,23 @@ public class DemoSiteTest {
 
 	    @Test
 	    public void test() throws InterruptedException {
-	        driver.get("http://thedemosite.co.uk/");
+	        driver.get(landingPage.URL);
+	        landingPage landingPage = new landingPage(driver);
+	        
+	        landingPage.clickCreate();
 
-	        WebElement create = driver.findElement(By.xpath("/html/body/div/center/table/tbody/tr[2]/td/div/center/table/tbody/tr/td[2]/p/small/a[3]"));; 
-	        create.click();
-	        WebElement usernameCreate = driver.findElement(By.name("username"));; 
-	        WebElement passwordCreate = driver.findElement(By.name("password"));;   
 	        
-	        usernameCreate.sendKeys("TestUser");
-	        passwordCreate.sendKeys("TestPass");
+
+	        createUser createUser = new createUser(driver);
+	        createUser.createForm();
+
+	        createUser.login();
+
+	        login login = new login(driver);
+	        login.login();
 	        
-	        WebElement createButton = driver.findElement(By.name("FormsButton2"));;  
-	        createButton.click();
-	        
-//	        WebElement createUserCheck = driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/blockquote/blockquote[2]/blockquote/text()[1]"));
-//	        WebElement createPassCheck = driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/blockquote/blockquote[2]/blockquote/text()[2]"));
-//	        
-	        WebElement login = driver.findElement(By.xpath("/html/body/div/center/table/tbody/tr[2]/td/div/center/table/tbody/tr/td[2]/p/small/a[4]"));; 
-	        login.click();
-	        
-	        WebElement usernameLogin = driver.findElement(By.name("username"));; 
-	        WebElement passwordLogin = driver.findElement(By.name("password"));;   
-	        
-	        usernameLogin.sendKeys("TestUser");
-	        passwordLogin.sendKeys("TestPass");
-	        
-	        WebElement loginButton = driver.findElement(By.name("FormsButton2"));;  
-	        loginButton.click();
-	        
-	        WebElement checkLogin = driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/big/blockquote/blockquote/font/center/b"));
-	       assertEquals("**Successful Login**", checkLogin.getText());
-	    }
+	       assertEquals("**Successful Login**", login.checkLogin());
+	    } 
 
 	    @After
 	    public void tearDown() {

@@ -1,12 +1,10 @@
 package seleniumTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +14,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import pages.inventoryPage;
+import pages.landingPage;
 
 public class DemoSiteTest {
 	 private WebDriver driver;
@@ -29,19 +30,12 @@ public class DemoSiteTest {
 	    }
 
 	    @Test
-	    public void test() throws InterruptedException {
-	    	 driver.get("https://www.saucedemo.com/");
-	    	 
-	    	 WebElement user = driver.findElement(By.id("user-name"));
-	    	 WebElement pass = driver.findElement(By.id("password"));
-	    	 
-	    	 user.sendKeys("standard_user");
-	    	 pass.sendKeys("secret_sauce");
-	    	 WebElement button = driver.findElement(By.id("login-button"));
-	    	  	
-	    	 button.click();
-	    	 
-	    	 List<WebElement> results = driver.findElements(By.className("inventory_item"));
+	    public void test1() {
+	        driver.get(landingPage.URL);
+	        landingPage landingPage = new landingPage(driver);
+	        landingPage.login("standard_user", "secret_sauce");
+	       
+	        List<WebElement> results = driver.findElements(By.className("inventory_item"));
 	    	 List<String> names = new ArrayList();
 	    	 for(WebElement product : results) {
 	    		 //product = driver.findElement(By.className("inventory_item"));
@@ -51,9 +45,9 @@ public class DemoSiteTest {
 	    		 names.add(product.findElement(By.className("inventory_item_name")).getText());
 	    	 }
 	
-	      WebElement cart = driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[2]/a"));
-	      cart.click();
-	      
+	    	 inventoryPage inventoryPage = new inventoryPage(driver);
+	    	 inventoryPage.goToCart();
+	    	 
 	      List<WebElement> results2 = driver.findElements(By.className("cart_item"));
 	    	 List<String> names2 = new ArrayList();
 	    	 for(WebElement product : results2) {
@@ -63,8 +57,9 @@ public class DemoSiteTest {
 	    	 }
 	    	
 	      assertEquals(names,names2);
-
+	        
 	    }
+
 
 	    @After
 	    public void tearDown() {
