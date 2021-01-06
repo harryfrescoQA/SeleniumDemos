@@ -32,28 +32,26 @@ public class StepDefinitions {
 	        driver.close();
 	    }
 
-	        
-
-	     
-
-	    
+	    // Go to site
 	    @Given("^the correct web address$")
 	    public void the_correct_web_address(){
 	    	driver.get(landingPage.URL);
 	        
 	    }
 
+	    // Go to Add user page
 	    @When("^I navigate to the 'Add a User' page$")
 	    public void i_navigate_to_the_Add_a_User_page() throws Throwable {
 	    	 landingPage landingPage = new landingPage(driver);
 	    	landingPage.clickCreate();
 	    }
-
+	    
 	    @Then("^I can see a form to create a user$")
 	    public void i_can_see_a_form_to_create_a_user()  {
 	        
 	    }
 
+	    // Fill form in 
 	    @When("^I click add user button and fill in the form and submit$")
 	    public void i_click_add_user_button_and_fill_in_the_form_and_submit(){
 	    	landingPage landingPage = new landingPage(driver);
@@ -67,12 +65,14 @@ public class StepDefinitions {
 	       
 	    }
 
+	    // Log in 
 	    @When("^I log in with the credentials$")
 	    public void i_log_in_with_the_credentials() throws Throwable {
 	   	 createUser createUser = new createUser(driver);
 	    	   createUser.login();
 	    }
 
+	    // Check if successfull
 	    @Then("^the success message is shown$")
 	    public void the_success_message_is_shown() throws Throwable {
 

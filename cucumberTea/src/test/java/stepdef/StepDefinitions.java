@@ -28,24 +28,27 @@ public class StepDefinitions {
         driver.manage().window().setSize(new Dimension(1366, 768));
 	}
 
+	// Go to website
 	@Given("^the correct web address$")
 	public void the_correct_web_address() {
 		driver.get(URL);
 	}
 
+	// Go to menu page
 	@When("^I navigate to the 'Menu' page$")
 	public void i_navigate_to_the_Menu_page(){
 		WebElement menuLink = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[13]/div/ul/li[3]/a"));
 		menuLink.click();
 	}
 
+	// Check that the product page has correct results
 	@Then("^I can browse a list of the available products\\.$")
 	public void i_can_browse_a_list_of_the_available_products() {
 		assertTrue(driver.getPageSource().contains("Green Tea"));
 	}
 
 	
-	// 2
+	// Go to menu and click checkout for an item
 	@When("^I click the checkout button$")
 	public void i_click_the_checkout_button()
 	{
@@ -57,11 +60,13 @@ public class StepDefinitions {
 		
 	}
 
+	// Check it's on the right page
 	@Then("^I am taken to the checkout page$")
 	public void i_am_taken_to_the_checkout_page(){
 	    assertEquals("Check Out", driver.getTitle());
 	}
 	
+	// go to checkout and fill form in 
 	@When("^I fill in the form to checkout and submit$")
 	public void i_fill_in_the_form_to_checkout_and_submit() {
 		WebElement menuLink = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[13]/div/ul/li[3]/a"));
@@ -76,6 +81,7 @@ public class StepDefinitions {
 	 button.click();
 	}
 
+	// Check it's on the home page
 	@Then("^I am taken back to the homepage$")
 	public void i_am_taken_back_to_the_homepage() {
 	    assertEquals("Menu", driver.getTitle());

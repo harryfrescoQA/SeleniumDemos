@@ -27,12 +27,14 @@ public class StepDefinitions {
         driver.manage().window().setSize(new Dimension(1366, 768));
 	}
 
+	// Go to google
 	@Given("^Google is navigated to$")
 	public void google_is_navigated_to() {
 		driver.get(URL);
 		assertEquals("Google", driver.getTitle());
 	}
 
+	// Search for hamsters
 	@When("^i search for hamsters$")
 	public void i_search_for_hamsters() {
 		WebElement input = driver.findElement(By.name("q"));
@@ -40,6 +42,7 @@ public class StepDefinitions {
 		input.submit();
 	}
 
+	// Check hamsters are shown
 	@Then("^I should see images of hamsters$")
 	public void i_should_see_images_of_hamsters(){
 			driver.findElement(By.name("q")).clear();

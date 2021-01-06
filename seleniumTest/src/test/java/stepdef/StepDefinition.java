@@ -22,11 +22,14 @@ public class StepDefinition {
 	        driver = new ChromeDriver();
 	        driver.manage().window().setSize(new Dimension(1366, 768));
 	    }
+	 
+	 // Go to site
 	@Given("^the correct web address$")
 	public void the_correct_web_address() {
 		 driver.get("http://automationpractice.com/index.php");
 	}
 
+	// Search 
 	@When("^I search for blouse$")
 	public void i_search_for_blouse() {
 		WebElement searchBar = driver.findElement(By.id("search_query_top"));
@@ -35,6 +38,7 @@ public class StepDefinition {
         searchBar.submit();
 	}
 
+	// Check results
 	@Then("^I can see the correct result$")
 	public void i_can_see_the_correct_result() throws Throwable {
 		WebElement results = driver.findElement(By.cssSelector("#center_column > ul > li > div > div.right-block > h5 > a"));
