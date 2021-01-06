@@ -36,7 +36,7 @@ public class DemoSiteTest {
 	    @Test
 	    public void test() throws InterruptedException {
 	    	
-	        ExtentReports extent = new ExtentReports("C:\\Users\\harry\\Documents\\SeleniumTests\\seleniumTest\\src\\test\\resources", true); 
+	        ExtentReports extent = new ExtentReports("src/test/resources", true); 
 	        ExtentTest test;
 	        
 	        test = extent.startTest("Checking search results");
