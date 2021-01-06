@@ -44,10 +44,12 @@ public class StepDefinitions {
 		assertTrue(driver.getPageSource().contains("Green Tea"));
 	}
 
+	
+	// 2
 	@When("^I click the checkout button$")
 	public void i_click_the_checkout_button()
 	{
-		driver.get(URL);
+		
 		WebElement menuLink = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[13]/div/ul/li[3]/a"));
 		menuLink.click();
 		WebElement checkoutButton = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[16]/div/a/span"));
@@ -60,6 +62,24 @@ public class StepDefinitions {
 	    assertEquals("Check Out", driver.getTitle());
 	}
 	
+	@When("^I fill in the form to checkout and submit$")
+	public void i_fill_in_the_form_to_checkout_and_submit() {
+		WebElement menuLink = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[13]/div/ul/li[3]/a"));
+		menuLink.click();
+		WebElement checkoutButton = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[16]/div/a/span"));
+		checkoutButton.click();
+	 WebElement email = driver.findElement(By.id("email"));
+	 email.sendKeys("emailTest");
+	 WebElement name = driver.findElement(By.id("name"));
+	 name.sendKeys("nameTest");
+	 WebElement button = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/div[1]/div/div/form/div/button"));
+	 button.click();
+	}
+
+	@Then("^I am taken back to the homepage$")
+	public void i_am_taken_back_to_the_homepage() {
+	    assertEquals("Menu", driver.getTitle());
+	}
 	 @After
 	    public void tearDown() {
 	        driver.close();

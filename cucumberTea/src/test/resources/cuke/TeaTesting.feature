@@ -13,3 +13,8 @@ Scenario: Add an item to the checkout
 	Given the correct web address 
 	When I click the checkout button 
 	Then I am taken to the checkout page 
+	
+Scenario: Fill in checkout form
+	Given the correct web address
+	When I fill in the form to checkout and submit
+	Then I am taken back to the homepage
