@@ -1,13 +1,13 @@
 $(document).ready(function() {var formatter = new CucumberHTML.DOMFormatter($('.cucumber-report'));formatter.uri("src/test/resources/cuke/DemoSite.feature");
 formatter.feature({
   "line": 1,
-  "name": "Finding riser and faller",
+  "name": "Adding all to cart",
   "description": "",
-  "id": "finding-riser-and-faller",
+  "id": "adding-all-to-cart",
   "keyword": "Feature"
 });
 formatter.before({
-  "duration": 6060875700,
+  "duration": 6813443700,
   "status": "passed"
 });
 formatter.background({
@@ -26,47 +26,47 @@ formatter.match({
   "location": "StepDefinitions.the_correct_web_address()"
 });
 formatter.result({
-  "duration": 2355368300,
+  "duration": 454248300,
   "status": "passed"
 });
 formatter.scenario({
   "line": 6,
-  "name": "Finding riser",
+  "name": "Log in",
   "description": "",
-  "id": "finding-riser-and-faller;finding-riser",
+  "id": "adding-all-to-cart;log-in",
   "type": "scenario",
   "keyword": "Scenario"
 });
 formatter.step({
   "line": 7,
-  "name": "I navigate to risers",
+  "name": "I enter the correct credentials",
   "keyword": "When "
 });
 formatter.step({
   "line": 8,
-  "name": "I can see the top riser",
+  "name": "I can see the inventory page",
   "keyword": "Then "
 });
 formatter.match({
-  "location": "StepDefinitions.i_navigate_to_risers()"
+  "location": "StepDefinitions.i_enter_the_correct_credentials()"
 });
 formatter.result({
-  "duration": 816764500,
+  "duration": 1046541100,
   "status": "passed"
 });
 formatter.match({
-  "location": "StepDefinitions.i_can_see_the_top_riser()"
+  "location": "StepDefinitions.i_can_see_the_inventory_page()"
 });
 formatter.result({
-  "duration": 145042600,
+  "duration": 8364700,
   "status": "passed"
 });
 formatter.after({
-  "duration": 94591100,
+  "duration": 98501700,
   "status": "passed"
 });
 formatter.before({
-  "duration": 5519895700,
+  "duration": 5286260200,
   "status": "passed"
 });
 formatter.background({
@@ -85,43 +85,43 @@ formatter.match({
   "location": "StepDefinitions.the_correct_web_address()"
 });
 formatter.result({
-  "duration": 2490050900,
+  "duration": 187564200,
   "status": "passed"
 });
 formatter.scenario({
   "line": 10,
-  "name": "Finding Faller",
+  "name": "Add to cart",
   "description": "",
-  "id": "finding-riser-and-faller;finding-faller",
+  "id": "adding-all-to-cart;add-to-cart",
   "type": "scenario",
   "keyword": "Scenario"
 });
 formatter.step({
-  "line": 11,
-  "name": "I navigate to fallers",
+  "line": 12,
+  "name": "I log in and add all to cart",
   "keyword": "When "
 });
 formatter.step({
-  "line": 12,
-  "name": "I can see the top faller",
+  "line": 13,
+  "name": "I can go to checkout and see all items",
   "keyword": "Then "
 });
 formatter.match({
-  "location": "StepDefinitions.i_navigate_to_fallers()"
+  "location": "StepDefinitions.i_log_in_and_add_all_to_cart()"
 });
 formatter.result({
-  "duration": 809788600,
+  "duration": 1649256400,
   "status": "passed"
 });
 formatter.match({
-  "location": "StepDefinitions.i_can_see_the_top_faller()"
+  "location": "StepDefinitions.i_can_go_to_checkout_and_see_all_items()"
 });
 formatter.result({
-  "duration": 162265900,
+  "duration": 413235400,
   "status": "passed"
 });
 formatter.after({
-  "duration": 139382300,
+  "duration": 90621600,
   "status": "passed"
 });
 });
