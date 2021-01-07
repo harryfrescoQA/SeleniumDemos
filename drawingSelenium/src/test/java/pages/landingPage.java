@@ -31,10 +31,12 @@ public class landingPage {
 
 	   public void drawInitials() {
 		   Actions action = new Actions(driver);
+		   //H
 		   action.moveToElement(canvas).clickAndHold().moveByOffset(0, -200).click()
 		   	.moveToElement(canvas, 0,-100).clickAndHold().moveByOffset(100, 0).click().moveToElement(canvas,100,0).clickAndHold().moveByOffset(0, -200).click()
 		   	.build().perform();
 		   
+		   //F
 		   action.moveToElement(canvas, 150, 0).clickAndHold().moveByOffset(0, -200).moveByOffset(100, 0).click()
 		   .moveToElement(canvas, 150, -100).clickAndHold().moveByOffset(100, 0).build().perform();
 				   }
