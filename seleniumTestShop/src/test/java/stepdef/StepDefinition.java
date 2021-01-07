@@ -8,6 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -16,6 +20,7 @@ import cucumber.api.java.en.When;
 
 public class StepDefinition {
 	 private WebDriver driver;
+
 	 @Before
 	    public void setup() {
 	        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
@@ -27,7 +32,7 @@ public class StepDefinition {
 	@Given("^the correct web address$")
 	public void the_correct_web_address() {
 		 driver.get("http://automationpractice.com/index.php");
-	}
+		 }
 
 	// Search 
 	@When("^I search for blouse$")
