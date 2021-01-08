@@ -31,11 +31,15 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pages.homePage;
+import pages.signIn;
+import pages.createUser;
 
 public class StepDefinition {
 	 private WebDriver driver;
 	 private String nameCheck;
 	 private int userNum=0;
+	 String[][] users;
 	 // Using Apache POI
 	 // Create four users and assert they can log in
 	 // Username, password, assertion(what it's checking), status(passed)
@@ -52,7 +56,7 @@ public class StepDefinition {
 		 FileInputStream file = new FileInputStream("src/test/resources/data.xlsx");
 		 XSSFWorkbook workbook = new XSSFWorkbook(file);
 		 XSSFSheet sheet = workbook.getSheetAt(0);
-		 String[][] users = new String[sheet.getPhysicalNumberOfRows()][sheet.getRow(0).getPhysicalNumberOfCells()];
+		 users = new String[sheet.getPhysicalNumberOfRows()][sheet.getRow(0).getPhysicalNumberOfCells()];
 		 for (int rowNum = 0; rowNum < sheet.getPhysicalNumberOfRows(); rowNum++) {
 	
 			 for(int colNum = 0; colNum < sheet.getRow(rowNum).getPhysicalNumberOfCells(); colNum++) {
@@ -68,37 +72,21 @@ public class StepDefinition {
 	 
 	 public void createUser() throws IOException {
 		 String[][] users = loginRead();
+	
+		  nameCheck = users[userNum][1] + " " + users[userNum][2];
+			  
+		  homePage homePage = new homePage(driver);
+		  homePage.clickSignIn();
+		  
+		  signIn signIn = new signIn(driver);
+		 
+		  signIn.clickSignIn(users, userNum);
 
-
-			  nameCheck = users[userNum][1] + " " + users[userNum][2];
-				   WebElement signin = driver.findElement(By.className("login"));
-				   signin.click();
-				   WebElement emailInput = driver.findElement(By.id("email_create"));
-				   emailInput.sendKeys(users[userNum][0]);
-				   WebElement signupbutton1 = driver.findElement(By.id("SubmitCreate"));
-				   signupbutton1.click();
-				   driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
-				   WebElement name = driver.findElement(By.id("customer_firstname"));
-				   name.sendKeys(users[userNum][1]);
-				   WebElement name2 = driver.findElement(By.id("customer_lastname"));
-				   name2.sendKeys(users[userNum][2]);
-				   WebElement pass = driver.findElement(By.id("passwd"));
-				   pass.sendKeys(users[userNum][3]);
-
-				   WebElement address = driver.findElement(By.id("address1"));
-				   address.sendKeys(users[userNum][4]);
-				   WebElement city = driver.findElement(By.id("city"));
-				   city.sendKeys(users[userNum][5]);
-				   Select state = new Select(driver.findElement(By.id("id_state")));
-				   state.selectByVisibleText("California");
-				   WebElement pcode = driver.findElement(By.id("postcode"));
-				   pcode.sendKeys(users[userNum][6]);
-				   WebElement phone = driver.findElement(By.id("phone_mobile"));
-				   phone.sendKeys(users[userNum][7]);
 				   
-				   WebElement submit = driver.findElement(By.id("submitAccount"));
-				   submit.click();
-				 
+		  driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
+		  
+		  createUser createUser = new createUser(driver);
+		  createUser.createAccountForm(users, userNum);
 				  // 	System.out.println(users[x][y]);
 				   
 				   
@@ -107,14 +95,12 @@ public class StepDefinition {
 	 // Go to site
 	@Given("^the correct web address$")
 	public void the_correct_web_address() {
-		 driver.get("http://automationpractice.com/index.php");
-		 }
+		 driver.get(homePage.URL);
+	}
 
 
 	@When("^I create a user$")
 	public void i_create_a_user() throws IOException {
-		
-		 
 		createUser();
 		 userNum++;
 	}
@@ -124,7 +110,9 @@ public class StepDefinition {
 		WebElement check = driver.findElement(By.xpath("/html/body/div/div[1]/header/div[2]/div/div/nav/div[1]/a"));
 		System.out.println(check.getText());
 		assertEquals(nameCheck, check.getText());
-		if(userNum < 4) {
+		
+		
+		if(userNum < users.length) {
 			driver.manage().deleteAllCookies();
 			the_correct_web_address();
 			i_create_a_user();
