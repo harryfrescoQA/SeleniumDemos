@@ -4,12 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
@@ -60,14 +63,60 @@ public class StepDefinition {
 		 for (int rowNum = 0; rowNum < sheet.getPhysicalNumberOfRows(); rowNum++) {
 	
 			 for(int colNum = 0; colNum < sheet.getRow(rowNum).getPhysicalNumberOfCells(); colNum++) {
+			
 				 XSSFCell cell = sheet.getRow(rowNum).getCell(colNum);
-				 cell.setCellType(Cell.CELL_TYPE_STRING);
-				 String userCell = cell.getStringCellValue().toString();
+				 if(cell != null) {
+					 	 cell.setCellType(Cell.CELL_TYPE_STRING);
+						 String userCell = cell.getStringCellValue().toString();
+							users[rowNum][colNum]=userCell;
+				 }
+			
+			
+
 				 //output
-				users[rowNum][colNum]=userCell;
+			
 			 }
 		 }
 		 return users;
+	 }
+	 public void writeToFile(List<Boolean> results) throws IOException {
+			
+		 FileInputStream file = new FileInputStream("src/test/resources/data.xlsx");
+		 XSSFWorkbook workbook = new XSSFWorkbook(file);
+		 XSSFSheet sheet = workbook.getSheetAt(0);
+		 
+		 XSSFRow row = sheet.getRow(0);
+		 
+		 if(row != null) {
+	
+			 int resultNum = 0;
+			 for(Boolean result : results) {
+				 
+				 XSSFCell cell = row.getCell(users[resultNum].length);
+				 
+				 if(cell == null) {
+					 	cell = row.createCell(users[resultNum].length);
+				 }
+				 if(result == true) {
+					 cell.setCellValue("Passed");
+				 }
+				 else {
+					 cell.setCellValue("Failed");
+				 }
+				 resultNum++;
+				 row = sheet.getRow(resultNum);
+			 }
+			
+			 
+			 
+			 FileOutputStream fileOut = new FileOutputStream("src/test/resources/data.xlsx");
+			 workbook.write(fileOut);
+			 fileOut.flush();
+			 fileOut.close();
+			 file.close();
+		 }
+		
+		 
 	 }
 	 
 	 public void createUser() throws IOException {
@@ -108,17 +157,20 @@ public class StepDefinition {
 	@Then("^I can log in with credentials$")
 	public void i_can_log_in_with_credentials() throws IOException {
 		WebElement check = driver.findElement(By.xpath("/html/body/div/div[1]/header/div[2]/div/div/nav/div[1]/a"));
-		System.out.println(check.getText());
+		//System.out.println(check.getText() + " " + nameCheck);
+		List<Boolean> results = new ArrayList<Boolean>();;
+		results.add(nameCheck.equals(check.getText()));
+		
 		assertEquals(nameCheck, check.getText());
 		
-		
+
 		if(userNum < users.length) {
 			driver.manage().deleteAllCookies();
 			the_correct_web_address();
 			i_create_a_user();
 			i_can_log_in_with_credentials();
 		}
-		
+		writeToFile(results);
 	}
 	
 	
