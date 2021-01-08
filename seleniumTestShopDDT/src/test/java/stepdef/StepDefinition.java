@@ -46,22 +46,21 @@ public class StepDefinition {
 	        driver.manage().window().setSize(new Dimension(1366, 768));
 	    }
 
+	 // Read from xlsx
 	 public String[][] loginRead() throws IOException {
-		 String[][] users = new String[4][9];
+	
 		 FileInputStream file = new FileInputStream("src/test/resources/data.xlsx");
 		 XSSFWorkbook workbook = new XSSFWorkbook(file);
 		 XSSFSheet sheet = workbook.getSheetAt(0);
-		 
+		 String[][] users = new String[sheet.getPhysicalNumberOfRows()][sheet.getRow(0).getPhysicalNumberOfCells()];
 		 for (int rowNum = 0; rowNum < sheet.getPhysicalNumberOfRows(); rowNum++) {
 	
-			 for(int colNum = 0; colNum < 8; colNum++) {
+			 for(int colNum = 0; colNum < sheet.getRow(rowNum).getPhysicalNumberOfCells(); colNum++) {
 				 XSSFCell cell = sheet.getRow(rowNum).getCell(colNum);
 				 cell.setCellType(Cell.CELL_TYPE_STRING);
 				 String userCell = cell.getStringCellValue().toString();
 				 //output
-				 
 				users[rowNum][colNum]=userCell;
-				//System.out.println(users[rowNum][colNum]);
 			 }
 		 }
 		 return users;
